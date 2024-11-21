@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { TaskType } from '../App';
+import { FilterValuesType, TaskType } from '../App';
 import { Button } from './Button';
 
 type PropsType = {
@@ -7,6 +7,7 @@ type PropsType = {
   tasks: TaskType[];
   date?: string;
   removeTask: (id: number) => void;
+  setFilter: (val: FilterValuesType) => void;
 };
 
 export const Todolist: FC<PropsType> = ({
@@ -14,6 +15,7 @@ export const Todolist: FC<PropsType> = ({
   tasks,
   date,
   removeTask,
+  setFilter,
   ...restProps
 }) => {
   const tasksList: JSX.Element[] = tasks.map(t => {
@@ -27,6 +29,9 @@ export const Todolist: FC<PropsType> = ({
       </li>
     );
   });
+  const setFilterAll = () => setFilter('all');
+  const setFilterActive = () => setFilter('active');
+  const setFilterCompleted = () => setFilter('completed');
 
   return (
     <div>
@@ -38,9 +43,9 @@ export const Todolist: FC<PropsType> = ({
       <br />
 
       <div>
-        <Button name={'All'} onClick={() => {}} />
-        <Button name={'Active'} onClick={() => {}} />
-        <Button name={'Completed'} onClick={() => {}} />
+        <Button name={'All'} onClick={setFilterAll} />
+        <Button name={'Active'} onClick={setFilterActive} />
+        <Button name={'Completed'} onClick={setFilterCompleted} />
       </div>
       <br />
 

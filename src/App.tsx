@@ -7,7 +7,6 @@ export type TaskType = {
   title: string;
   isDone: boolean;
 };
-
 export type FilterValuesType = 'all' | 'active' | 'completed';
 
 function App() {
@@ -24,13 +23,26 @@ function App() {
 
   const removeTask = (id: number) => setTasks(tasks.filter(t => t.id !== id));
 
+  function tasksFilter(): TaskType[] {
+    switch (filter) {
+      case 'active':
+        return tasks.filter(t => !t.isDone);
+      case 'completed':
+        return tasks.filter(t => t.isDone);
+      default:
+        return tasks;
+    }
+  }
+  const filteredTasksArr = tasksFilter();
+
   return (
     <div className=''>
       <Todolist
         title={'What to learn'}
-        tasks={tasks}
+        tasks={filteredTasksArr}
         date={new Date().toLocaleDateString()}
         removeTask={removeTask}
+        setFilter={setFilter}
       />
     </div>
   );
