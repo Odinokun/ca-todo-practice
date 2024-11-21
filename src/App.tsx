@@ -18,11 +18,7 @@ function App() {
     { id: 7, title: 'Unit tests', isDone: true },
   ];
 
-  const tasks2: TaskType[] = [
-    { id: 1, title: 'Milk', isDone: true },
-    { id: 2, title: 'Bread', isDone: false },
-    { id: 3, title: 'Beer', isDone: true },
-  ];
+  const tasks2: TaskType[] = [];
 
   return (
     <div className=''>
