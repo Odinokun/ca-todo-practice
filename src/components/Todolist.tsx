@@ -6,21 +6,27 @@ type PropsType = {
   title: string;
   tasks: TaskType[];
   date?: string;
+  removeTask: (id: number) => void;
 };
 
 export const Todolist: FC<PropsType> = ({
   title,
   tasks,
   date,
+  removeTask,
   ...restProps
 }) => {
-  const tasksList: JSX.Element[] = tasks.map(t => (
-    <li key={t.id}>
-      <Button name={'del'} onClick={() => {}} />
-      <input type='checkbox' checked={t.isDone} />
-      <span>{t.title}</span>
-    </li>
-  ));
+  const tasksList: JSX.Element[] = tasks.map(t => {
+    const onClickHandler = () => removeTask(t.id);
+
+    return (
+      <li key={t.id}>
+        <Button name={'del'} onClick={onClickHandler} />
+        <input type='checkbox' checked={t.isDone} />
+        <span>{t.title}</span>
+      </li>
+    );
+  });
 
   return (
     <div>
@@ -39,6 +45,7 @@ export const Todolist: FC<PropsType> = ({
       <br />
 
       {tasksList.length ? <ul>{tasksList}</ul> : <span>No tasks</span>}
+      <br />
 
       <strong>
         <i>{date}</i>
