@@ -1,12 +1,14 @@
 import { FC } from 'react';
 import { Button } from './Button';
 
-type PropsType = {};
+type PropsType = {
+  title: string;
+};
 
-export const Todolist: FC<PropsType> = () => {
+export const Todolist: FC<PropsType> = ({ title, ...restProps }) => {
   return (
     <div>
-      <h3>What to learn</h3>
+      <h3>{title}</h3>
       <div>
         <input />
         <Button name={'add task'} onClick={() => {}} />

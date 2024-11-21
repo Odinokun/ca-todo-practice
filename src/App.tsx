@@ -4,8 +4,8 @@ import './App.css';
 function App() {
   return (
     <div className=''>
-      <Todolist />
-      <Todolist />
+      <Todolist title={'What to learn'} />
+      <Todolist title={'What to buy'} />
     </div>
   );
 }
