@@ -6,7 +6,7 @@ type PropsType = {
   title: string;
   tasks: TaskType[];
   date?: string;
-  removeTask: (id: number) => void;
+  removeTask: (id: string) => void;
   setFilter: (val: FilterValuesType) => void;
 };
 
