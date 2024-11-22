@@ -22,6 +22,15 @@ function App() {
   ]);
   const [filter, setFilter] = useState<FilterValuesType>('all');
 
+  const addTask = (title: string) => {
+    const newTask: TaskType = {
+      id: v1(),
+      title,
+      isDone: false,
+    };
+    setTasks([newTask, ...tasks]);
+  };
+
   const removeTask = (id: string) => setTasks(tasks.filter(t => t.id !== id));
 
   function tasksFilter(): TaskType[] {
@@ -42,6 +51,7 @@ function App() {
         title={'What to learn'}
         tasks={filteredTasksArr}
         date={new Date().toLocaleDateString()}
+        addTask={addTask}
         removeTask={removeTask}
         setFilter={setFilter}
       />
