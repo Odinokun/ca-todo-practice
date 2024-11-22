@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { KeyboardEvent, ChangeEvent, FC, useState } from 'react';
 import { FilterValuesType, TaskType } from '../App';
 import { Button } from './Button';
 
@@ -6,7 +6,8 @@ type PropsType = {
   title: string;
   tasks: TaskType[];
   date?: string;
-  removeTask: (id: number) => void;
+  addTask: (title: string) => void;
+  removeTask: (id: string) => void;
   setFilter: (val: FilterValuesType) => void;
 };
 
@@ -14,10 +15,31 @@ export const Todolist: FC<PropsType> = ({
   title,
   tasks,
   date,
+  addTask,
   removeTask,
   setFilter,
   ...restProps
 }) => {
+  const [inputVal, setInputVal] = useState<string>('');
+  const onInputChangeHandler = (e: ChangeEvent<HTMLInputElement>) =>
+    setInputVal(e.currentTarget.value);
+
+  const addTaskHandler = () => {
+    if (!inputVal.trim()) return;
+    addTask(inputVal.trim());
+    setInputVal('');
+  };
+
+  const onKeyPressHandler = (e: KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      addTaskHandler();
+    }
+  };
+
+  const setFilterAll = () => setFilter('all');
+  const setFilterActive = () => setFilter('active');
+  const setFilterCompleted = () => setFilter('completed');
+
   const tasksList: JSX.Element[] = tasks.map(t => {
     const onClickHandler = () => removeTask(t.id);
 
@@ -29,16 +51,17 @@ export const Todolist: FC<PropsType> = ({
       </li>
     );
   });
-  const setFilterAll = () => setFilter('all');
-  const setFilterActive = () => setFilter('active');
-  const setFilterCompleted = () => setFilter('completed');
 
   return (
     <div>
       <h3>{title}</h3>
       <div>
-        <input />
-        <Button name={'add task'} onClick={() => {}} />
+        <input
+          value={inputVal}
+          onChange={onInputChangeHandler}
+          onKeyDown={onKeyPressHandler}
+        />
+        <Button name={'add task'} onClick={addTaskHandler} />
       </div>
       <br />
 
